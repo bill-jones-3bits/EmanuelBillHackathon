@@ -24,14 +24,18 @@ namespace Hackathon_2017_Bill_Emanuel
         {
             var d = new OpenFileDialog() { Filter = "*.txt|*.txt" };
             var r = d.ShowDialog();
+            if (string.IsNullOrEmpty(this.txtSeparator.Text))
+            {
+                txtResult.Text = "Separator missing!";
+                return;
+            }
             if (r == DialogResult.OK)
             {
-                string err = x.LoadFile(d.FileName);
+                string err = x.LoadFile(d.FileName, this.txtSeparator.Text);
                 if (!string.IsNullOrEmpty(err))
                     txtResult.Text = err;
 
                 this.lstHeaders.DataSource = x.Columns;
-
             }
         }
 
@@ -47,6 +51,34 @@ namespace Hackathon_2017_Bill_Emanuel
             {
                 this.txtResult.Text = res;
             }
+        }
+
+        private void btnColumnRemove_Click(object sender, EventArgs e)
+        {
+            var sel = new List<Column>();
+            foreach (Column column in lstHeaders.SelectedItems)
+            {
+                sel.Add(column);
+            }
+            foreach (Column column in sel)
+            {
+                x.RemoveColumn(column);
+            }
+            lstHeaders.DataSource = x.Columns;
+        }
+
+        private void btnColDateToYearMonth_Click(object sender, EventArgs e)
+        {
+            var sel = new List<Column>();
+            foreach (Column column in lstHeaders.SelectedItems)
+            {
+                sel.Add(column);
+            }
+            foreach (Column column in lstHeaders.SelectedItems)
+            {
+                x.SplitDateColumn(column);
+            }
+            lstHeaders.DataSource = x.Columns;
         }
     }
 }

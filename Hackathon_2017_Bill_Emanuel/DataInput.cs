@@ -13,13 +13,15 @@ namespace Hackathon_2017_Bill_Emanuel
         Excel.Workbook wb;
         Excel.Application app = new Excel.Application();
         StreamWriter f;
+        string separator;
 
         List<List<string>> lines;
-        public string LoadFile(string path)
+        public string LoadFile(string path, string separator)
         {
             try
             {
                 string outFile = "C:\\tmp\\file.txt";
+                this.separator = separator;
 
                 var lines = File.ReadAllLines(path);
                 this.lines = new List<List<string>>();
@@ -45,14 +47,14 @@ namespace Hackathon_2017_Bill_Emanuel
             return string.Empty;
         }
 
-        private static string ToCsvLine(string line)
+        private string ToCsvLine(string line)
         {
-            return string.Format("\"{0}\"", line.Replace("\t", "\",\""));
+            return string.Format("\"{0}\"", line.Replace("\t", string.Format("\"{0}\"", this.separator)));
         }
 
-        private static string ToCsvLine(IEnumerable<string> line)
+        private string ToCsvLine(IEnumerable<string> line)
         {
-            return string.Format("\"{0}\"", string.Join(",", line));
+            return string.Format("\"{0}\"", string.Join(string.Concat("\"", this.separator, "\""), line));
         }
 
         public string LoadExcelFile(string path)
@@ -159,23 +161,23 @@ namespace Hackathon_2017_Bill_Emanuel
             }
         }
 
-        List<Column> columns;
+        List<Column> _columns;
         public List<Column> Columns
         {
             get
             {
                 if (lines.Count > 0)
                 {
-                    if (columns == null)
+                    if (_columns == null)
                     {
-                        columns = new List<Column>();
+                        _columns = new List<Column>();
                         var headers = Headers;
                         var ex1 = this.lines.Count > 1 ? this.lines[1] : throw new InvalidDataException("Too few rows!");
                         var ex2 = this.lines.Count > 2 ? this.lines[2] : throw new InvalidDataException("Too few rows!");
                         var ex3 = this.lines.Count > 3 ? this.lines[3] : throw new InvalidDataException("Too few rows!");
                         for (int i = 0; i < Headers.Count; i++)
                         {
-                            columns.Add(new Column()
+                            _columns.Add(new Column()
                             {
                                 Id = i,
                                 Header = headers[i],
@@ -185,10 +187,73 @@ namespace Hackathon_2017_Bill_Emanuel
                             });
                         }
                     }
-                    return columns;
+                    return _columns;
                 }
                 return null;
             }
+        }
+
+        public string RemoveColumn(Column column)
+        {
+            int id = Columns.FirstOrDefault(c => c.Header == column.Header).Id;
+            foreach (var line in this.lines)
+            {
+                line.RemoveAt(id);
+            }
+            string name = column.Header;
+            this.ResetColumns();
+            return string.Format("Removed column {0}", name);
+        }
+
+        public string ReplaceColumnValue(Column column, string replaceText, string withText)
+        {
+            foreach (var line in this.lines)
+            {
+                line[column.Id] = line[column.Id].Replace(replaceText, withText);
+            }
+            string name = column.Header;
+            this.ResetColumns();
+            return string.Format("Removed column {0}", name);
+        }
+
+        public string SplitDateColumn(Column column)
+        {
+            bool header = true;
+            foreach (var line in this.lines)
+            {
+                string d = line[column.Id];
+                DateTime date;
+                if (header)
+                {
+                    line[column.Id] = string.Concat(d, "_year");
+                    line.Insert(column.Id + 1, string.Concat(d, "_month"));
+                    line.Insert(column.Id + 2, string.Concat(d, "_day"));
+                    header = false;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(d))
+                    {
+                        date = DateTime.Parse(d);
+                        line[column.Id] = date.Year.ToString();
+                        line.Insert(column.Id + 1, date.Month.ToString());
+                        line.Insert(column.Id + 2, date.Day.ToString());
+                    }
+                    else
+                    {
+                        line.Insert(column.Id + 1, d);
+                        line.Insert(column.Id + 2, d);
+                    }
+                }
+            }
+            string name = column.Header;
+            this.ResetColumns();
+            return string.Format("Removed column {0}", name);
+        }
+
+        public void ResetColumns()
+        {
+            this._columns = null;
         }
 
     }

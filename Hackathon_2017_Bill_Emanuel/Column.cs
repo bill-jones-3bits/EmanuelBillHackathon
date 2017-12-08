@@ -15,7 +15,7 @@ namespace Hackathon_2017_Bill_Emanuel
         public string Example3 { get; set; }
         public override string ToString()
         {
-            return string.Format("{0} {1} ({2}, {3}, {4}...", Id, Header, Example1, Example2, Example3);
+            return string.Format("{0} {1} ({2}, {3}, {4}...)", Id, Header, Example1, Example2, Example3);
         }
     }
 }
