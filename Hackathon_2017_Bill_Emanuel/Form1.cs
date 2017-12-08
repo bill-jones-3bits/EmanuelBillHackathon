@@ -55,30 +55,51 @@ namespace Hackathon_2017_Bill_Emanuel
 
         private void btnColumnRemove_Click(object sender, EventArgs e)
         {
-            var sel = new List<Column>();
-            foreach (Column column in lstHeaders.SelectedItems)
-            {
-                sel.Add(column);
-            }
-            foreach (Column column in sel)
-            {
-                x.RemoveColumn(column);
-            }
-            lstHeaders.DataSource = x.Columns;
+            var sel = GetSelectedColumns();
+            Foreach(sel, (x, col) => x.RemoveColumn(col));
         }
 
         private void btnColDateToYearMonth_Click(object sender, EventArgs e)
+        {
+            var sel = GetSelectedColumns();
+            Foreach(sel, (x, col) => x.SplitDateColumn(col));
+        }
+
+        private void btnReplaceEmpty_Click(object sender, EventArgs e)
+        {
+            var sel = GetSelectedColumns();
+            Foreach(sel, (x, col) => x.ReplaceEmptyOrNonEmpty(col, this.txtReplaceEmpty.Text, true));
+        }
+
+        private void btnReplaceNonEmpty_Click(object sender, EventArgs e)
+        {
+            var sel = GetSelectedColumns();
+            Foreach(sel, (x, col) => x.ReplaceEmptyOrNonEmpty(col, this.txtReplaceNonEmpty.Text, false));
+        }
+
+        private void btnReplace_Click(object sender, EventArgs e)
+        {
+            var sel = GetSelectedColumns();
+            Foreach(sel, (x, col) => x.ReplaceColumnValue(col, this.txtReplace.Text, this.txtReplaceWith.Text));
+        }
+
+        private void Foreach(List<Column> columns, Action<DataInput, Column> action)
+        {
+            foreach (Column column in lstHeaders.SelectedItems)
+            {
+                action(this.x, column);
+            }
+            lstHeaders.DataSource = x.Columns;
+        }
+        
+        private List<Column> GetSelectedColumns()
         {
             var sel = new List<Column>();
             foreach (Column column in lstHeaders.SelectedItems)
             {
                 sel.Add(column);
             }
-            foreach (Column column in lstHeaders.SelectedItems)
-            {
-                x.SplitDateColumn(column);
-            }
-            lstHeaders.DataSource = x.Columns;
+            return sel;
         }
     }
 }

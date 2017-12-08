@@ -213,21 +213,37 @@ namespace Hackathon_2017_Bill_Emanuel
             }
             string name = column.Header;
             this.ResetColumns();
-            return string.Format("Removed column {0}", name);
+            return string.Format("Replaced value {0} in column {1} with {2}", replaceText, name, withText);
+        }
+
+        public string ReplaceEmptyOrNonEmpty(Column column, string withText, bool empty)
+        {
+            foreach (var line in this.lines)
+            {
+                bool replace = empty ? string.IsNullOrEmpty(line[column.Id]) : !string.IsNullOrEmpty(line[column.Id]);
+                if (replace)
+                {
+                    line[column.Id] = withText;
+                }
+            }
+            string name = column.Header;
+            this.ResetColumns();
+            return string.Format("Set non empty values in {0} to {1}", name, withText);
         }
 
         public string SplitDateColumn(Column column)
         {
+            int id = Columns.FirstOrDefault(c => c.Header == column.Header).Id;
             bool header = true;
             foreach (var line in this.lines)
             {
-                string d = line[column.Id];
+                string d = line[id];
                 DateTime date;
                 if (header)
                 {
-                    line[column.Id] = string.Concat(d, "_year");
-                    line.Insert(column.Id + 1, string.Concat(d, "_month"));
-                    line.Insert(column.Id + 2, string.Concat(d, "_day"));
+                    line[id] = string.Concat(d, "_year");
+                    line.Insert(id + 1, string.Concat(d, "_month"));
+                    line.Insert(id + 2, string.Concat(d, "_day"));
                     header = false;
                 }
                 else
@@ -235,20 +251,20 @@ namespace Hackathon_2017_Bill_Emanuel
                     if (!string.IsNullOrEmpty(d))
                     {
                         date = DateTime.Parse(d);
-                        line[column.Id] = date.Year.ToString();
-                        line.Insert(column.Id + 1, date.Month.ToString());
-                        line.Insert(column.Id + 2, date.Day.ToString());
+                        line[id] = date.Year.ToString();
+                        line.Insert(id + 1, date.Month.ToString());
+                        line.Insert(id + 2, date.Day.ToString());
                     }
                     else
                     {
-                        line.Insert(column.Id + 1, d);
-                        line.Insert(column.Id + 2, d);
+                        line.Insert(id + 1, d);
+                        line.Insert(id + 2, d);
                     }
                 }
             }
             string name = column.Header;
             this.ResetColumns();
-            return string.Format("Removed column {0}", name);
+            return string.Format("Split date column {0}", name);
         }
 
         public void ResetColumns()

@@ -36,7 +36,13 @@
             this.txtSeparator = new System.Windows.Forms.TextBox();
             this.btnColumnRemove = new System.Windows.Forms.Button();
             this.btnColDateToYearMonth = new System.Windows.Forms.Button();
-            this.btnSomething = new System.Windows.Forms.Button();
+            this.btnReplaceEmpty = new System.Windows.Forms.Button();
+            this.btnReplace = new System.Windows.Forms.Button();
+            this.txtReplace = new System.Windows.Forms.TextBox();
+            this.txtReplaceWith = new System.Windows.Forms.TextBox();
+            this.txtReplaceEmpty = new System.Windows.Forms.TextBox();
+            this.txtReplaceNonEmpty = new System.Windows.Forms.TextBox();
+            this.btnReplaceNonEmpty = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnImport
@@ -113,21 +119,80 @@
             this.btnColDateToYearMonth.UseVisualStyleBackColor = true;
             this.btnColDateToYearMonth.Click += new System.EventHandler(this.btnColDateToYearMonth_Click);
             // 
-            // btnSomething
+            // btnReplaceEmpty
             // 
-            this.btnSomething.Location = new System.Drawing.Point(12, 273);
-            this.btnSomething.Name = "btnSomething";
-            this.btnSomething.Size = new System.Drawing.Size(292, 23);
-            this.btnSomething.TabIndex = 8;
-            this.btnSomething.Text = "button3";
-            this.btnSomething.UseVisualStyleBackColor = true;
+            this.btnReplaceEmpty.Location = new System.Drawing.Point(12, 273);
+            this.btnReplaceEmpty.Name = "btnReplaceEmpty";
+            this.btnReplaceEmpty.Size = new System.Drawing.Size(186, 23);
+            this.btnReplaceEmpty.TabIndex = 8;
+            this.btnReplaceEmpty.Text = "ReplaceEmpty";
+            this.btnReplaceEmpty.UseVisualStyleBackColor = true;
+            this.btnReplaceEmpty.Click += new System.EventHandler(this.btnReplaceEmpty_Click);
+            // 
+            // btnReplace
+            // 
+            this.btnReplace.Location = new System.Drawing.Point(12, 386);
+            this.btnReplace.Name = "btnReplace";
+            this.btnReplace.Size = new System.Drawing.Size(80, 23);
+            this.btnReplace.TabIndex = 9;
+            this.btnReplace.Text = "Replace";
+            this.btnReplace.UseVisualStyleBackColor = true;
+            this.btnReplace.Click += new System.EventHandler(this.btnReplace_Click);
+            // 
+            // txtReplace
+            // 
+            this.txtReplace.Location = new System.Drawing.Point(98, 389);
+            this.txtReplace.Name = "txtReplace";
+            this.txtReplace.Size = new System.Drawing.Size(100, 20);
+            this.txtReplace.TabIndex = 10;
+            this.txtReplace.Text = "NULL";
+            // 
+            // txtReplaceWith
+            // 
+            this.txtReplaceWith.Location = new System.Drawing.Point(204, 389);
+            this.txtReplaceWith.Name = "txtReplaceWith";
+            this.txtReplaceWith.Size = new System.Drawing.Size(100, 20);
+            this.txtReplaceWith.TabIndex = 11;
+            this.txtReplaceWith.Text = "empty";
+            // 
+            // txtReplaceEmpty
+            // 
+            this.txtReplaceEmpty.Location = new System.Drawing.Point(204, 275);
+            this.txtReplaceEmpty.Name = "txtReplaceEmpty";
+            this.txtReplaceEmpty.Size = new System.Drawing.Size(100, 20);
+            this.txtReplaceEmpty.TabIndex = 12;
+            this.txtReplaceEmpty.Text = "empty";
+            // 
+            // txtReplaceNonEmpty
+            // 
+            this.txtReplaceNonEmpty.Location = new System.Drawing.Point(204, 304);
+            this.txtReplaceNonEmpty.Name = "txtReplaceNonEmpty";
+            this.txtReplaceNonEmpty.Size = new System.Drawing.Size(100, 20);
+            this.txtReplaceNonEmpty.TabIndex = 14;
+            this.txtReplaceNonEmpty.Text = "Set";
+            // 
+            // btnReplaceNonEmpty
+            // 
+            this.btnReplaceNonEmpty.Location = new System.Drawing.Point(12, 302);
+            this.btnReplaceNonEmpty.Name = "btnReplaceNonEmpty";
+            this.btnReplaceNonEmpty.Size = new System.Drawing.Size(186, 23);
+            this.btnReplaceNonEmpty.TabIndex = 13;
+            this.btnReplaceNonEmpty.Text = "Replace non-Empty";
+            this.btnReplaceNonEmpty.UseVisualStyleBackColor = true;
+            this.btnReplaceNonEmpty.Click += new System.EventHandler(this.btnReplaceNonEmpty_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 422);
-            this.Controls.Add(this.btnSomething);
+            this.Controls.Add(this.txtReplaceNonEmpty);
+            this.Controls.Add(this.btnReplaceNonEmpty);
+            this.Controls.Add(this.txtReplaceEmpty);
+            this.Controls.Add(this.txtReplaceWith);
+            this.Controls.Add(this.txtReplace);
+            this.Controls.Add(this.btnReplace);
+            this.Controls.Add(this.btnReplaceEmpty);
             this.Controls.Add(this.btnColDateToYearMonth);
             this.Controls.Add(this.btnColumnRemove);
             this.Controls.Add(this.txtSeparator);
@@ -153,7 +218,13 @@
         private System.Windows.Forms.TextBox txtSeparator;
         private System.Windows.Forms.Button btnColumnRemove;
         private System.Windows.Forms.Button btnColDateToYearMonth;
-        private System.Windows.Forms.Button btnSomething;
+        private System.Windows.Forms.Button btnReplaceEmpty;
+        private System.Windows.Forms.Button btnReplace;
+        private System.Windows.Forms.TextBox txtReplace;
+        private System.Windows.Forms.TextBox txtReplaceWith;
+        private System.Windows.Forms.TextBox txtReplaceEmpty;
+        private System.Windows.Forms.TextBox txtReplaceNonEmpty;
+        private System.Windows.Forms.Button btnReplaceNonEmpty;
     }
 }
 
