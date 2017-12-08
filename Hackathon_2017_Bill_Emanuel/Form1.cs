@@ -18,17 +18,34 @@ namespace Hackathon_2017_Bill_Emanuel
             InitializeComponent();
         }
 
-        XlsInput x = new XlsInput();
+        DataInput x = new DataInput();
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            var d = new OpenFileDialog() { Filter = "*.xlsx|*.xlsx" };
+            var d = new OpenFileDialog() { Filter = "*.txt|*.txt" };
             var r = d.ShowDialog();
             if (r == DialogResult.OK)
             {
                 string err = x.LoadFile(d.FileName);
                 if (!string.IsNullOrEmpty(err))
                     txtResult.Text = err;
+
+                this.lstHeaders.DataSource = x.Columns;
+
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            string res = x.SaveFile(this.txtOutFile.Text);
+            if (string.IsNullOrEmpty(res))
+            {
+                this.txtResult.Text = "Saved!";
+                
+            }
+            else
+            {
+                this.txtResult.Text = res;
             }
         }
     }
