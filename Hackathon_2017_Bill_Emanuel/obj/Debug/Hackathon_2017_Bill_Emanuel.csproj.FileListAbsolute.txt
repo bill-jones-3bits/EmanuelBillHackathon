@@ -1,0 +1,10 @@
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csprojResolveAssemblyReference.cache
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csproj.ResolveComReference.cache
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.Form1.resources
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.Properties.Resources.resources
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csproj.GenerateResource.Cache
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\bin\Debug\Hackathon_2017_Bill_Emanuel.exe.config
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\bin\Debug\Hackathon_2017_Bill_Emanuel.exe
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\bin\Debug\Hackathon_2017_Bill_Emanuel.pdb
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.exe
+c:\users\emanuel.hogberg\documents\visual studio 2017\Projects\Hackathon_2017_Bill_Emanuel\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.pdb
