@@ -50,7 +50,8 @@ namespace Hackathon_2017_Bill_Emanuel
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string res = x.SaveFile(this.txtOutFile.Text, this.txtSeparator.Text);
+            bool comma = rdoComma.Checked;
+            string res = x.SaveFile(this.txtOutFile.Text, this.txtSeparator.Text, commaDelimiter: comma);
             if (string.IsNullOrEmpty(res))
             {
                 this.txtResult.Text = "Saved!";

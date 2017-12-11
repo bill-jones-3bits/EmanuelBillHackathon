@@ -51,6 +51,11 @@
             this.btnSaveAsInput = new System.Windows.Forms.Button();
             this.btnToInt = new System.Windows.Forms.Button();
             this.chkDoubleMeansQuotes = new System.Windows.Forms.CheckBox();
+            this.rdoPoint = new System.Windows.Forms.RadioButton();
+            this.rdoComma = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnImport
@@ -65,11 +70,11 @@
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(12, 41);
+            this.txtResult.Location = new System.Drawing.Point(12, 69);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(292, 168);
+            this.txtResult.Size = new System.Drawing.Size(292, 140);
             this.txtResult.TabIndex = 1;
             // 
             // btnSave
@@ -237,9 +242,9 @@
             // 
             // btnSaveAsInput
             // 
-            this.btnSaveAsInput.Location = new System.Drawing.Point(723, 12);
+            this.btnSaveAsInput.Location = new System.Drawing.Point(12, 40);
             this.btnSaveAsInput.Name = "btnSaveAsInput";
-            this.btnSaveAsInput.Size = new System.Drawing.Size(218, 23);
+            this.btnSaveAsInput.Size = new System.Drawing.Size(292, 23);
             this.btnSaveAsInput.TabIndex = 20;
             this.btnSaveAsInput.Text = "Save as input file (tab separated, .txt)";
             this.btnSaveAsInput.UseVisualStyleBackColor = true;
@@ -249,9 +254,9 @@
             // 
             this.btnToInt.Location = new System.Drawing.Point(12, 415);
             this.btnToInt.Name = "btnToInt";
-            this.btnToInt.Size = new System.Drawing.Size(142, 23);
+            this.btnToInt.Size = new System.Drawing.Size(186, 23);
             this.btnToInt.TabIndex = 21;
-            this.btnToInt.Text = "Doubles to integers";
+            this.btnToInt.Text = "Round decimals to integers";
             this.btnToInt.UseVisualStyleBackColor = true;
             this.btnToInt.Click += new System.EventHandler(this.btnToInt_Click);
             // 
@@ -260,18 +265,72 @@
             this.chkDoubleMeansQuotes.AutoSize = true;
             this.chkDoubleMeansQuotes.Checked = true;
             this.chkDoubleMeansQuotes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDoubleMeansQuotes.Location = new System.Drawing.Point(574, 16);
+            this.chkDoubleMeansQuotes.Location = new System.Drawing.Point(748, 16);
             this.chkDoubleMeansQuotes.Name = "chkDoubleMeansQuotes";
             this.chkDoubleMeansQuotes.Size = new System.Drawing.Size(143, 17);
             this.chkDoubleMeansQuotes.TabIndex = 22;
             this.chkDoubleMeansQuotes.Text = "Save double with quotes";
             this.chkDoubleMeansQuotes.UseVisualStyleBackColor = true;
             // 
+            // rdoPoint
+            // 
+            this.rdoPoint.AutoSize = true;
+            this.rdoPoint.Checked = true;
+            this.rdoPoint.Location = new System.Drawing.Point(310, 454);
+            this.rdoPoint.Name = "rdoPoint";
+            this.rdoPoint.Size = new System.Drawing.Size(248, 17);
+            this.rdoPoint.TabIndex = 23;
+            this.rdoPoint.TabStop = true;
+            this.rdoPoint.Text = "Weka & Azure ML Studio (use . as float delimiter)";
+            this.rdoPoint.UseVisualStyleBackColor = true;
+            // 
+            // rdoComma
+            // 
+            this.rdoComma.AutoSize = true;
+            this.rdoComma.Location = new System.Drawing.Point(577, 454);
+            this.rdoComma.Name = "rdoComma";
+            this.rdoComma.Size = new System.Drawing.Size(161, 17);
+            this.rdoComma.TabIndex = 24;
+            this.rdoComma.Text = "Other (use , as float delimiter)";
+            this.rdoComma.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(574, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(145, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "; required for azue ML & Weka";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(574, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(130, 13);
+            this.label2.TabIndex = 25;
+            this.label2.Text = ", default after Excel export";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(307, 438);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(123, 13);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Decimal delimiter setting:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 482);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.rdoComma);
+            this.Controls.Add(this.rdoPoint);
             this.Controls.Add(this.chkDoubleMeansQuotes);
             this.Controls.Add(this.btnToInt);
             this.Controls.Add(this.btnSaveAsInput);
@@ -327,6 +386,11 @@
         private System.Windows.Forms.Button btnSaveAsInput;
         private System.Windows.Forms.Button btnToInt;
         private System.Windows.Forms.CheckBox chkDoubleMeansQuotes;
+        private System.Windows.Forms.RadioButton rdoPoint;
+        private System.Windows.Forms.RadioButton rdoComma;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

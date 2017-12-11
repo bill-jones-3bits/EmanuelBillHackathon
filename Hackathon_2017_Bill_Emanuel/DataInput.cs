@@ -52,7 +52,7 @@ namespace Hackathon_2017_Bill_Emanuel
             return string.Format("\"{0}\"", line.Replace("\t", string.Format("\"{0}\"", this.separator)));
         }
 
-        private string ToCsvLine(IEnumerable<string> line, bool header, bool skipQuotes = false, bool includeQuotesForDoubles = true)
+        private string ToCsvLine(IEnumerable<string> line, bool header, bool skipQuotes = false, bool includeQuotesForDoubles = true, bool? commaDelimiter = null)
         {
             string quote = skipQuotes ? string.Empty : "\"";
             if (skipQuotes)
@@ -72,6 +72,8 @@ namespace Hackathon_2017_Bill_Emanuel
                 switch (t)
                 {
                     case ColumnType.Double:
+                        if (commaDelimiter.HasValue)
+                            val = commaDelimiter.Value ? val.Replace(".", ",") : val.Replace(",", ".");
                         if (!includeQuotesForDoubles)
                             newLine.Add(val);
                         else
@@ -141,7 +143,7 @@ namespace Hackathon_2017_Bill_Emanuel
             return string.Empty;
         }
 
-        public string SaveFile(string path, string separator, bool useQuotes = true, bool includeQuotesForDoubles = true)
+        public string SaveFile(string path, string separator, bool useQuotes = true, bool includeQuotesForDoubles = true, bool? commaDelimiter = null)
         {
             try
             {
@@ -150,7 +152,7 @@ namespace Hackathon_2017_Bill_Emanuel
                 if (this.separator == "\t" || this.separator == @"   ") { skipQuotes = true; }
                 RenameUniqueHeaders();
                 UpdateTypes();
-                var body = this.lines.Skip(1).Select(lineArr => ToCsvLine(lineArr, false, skipQuotes: skipQuotes, includeQuotesForDoubles: includeQuotesForDoubles)).ToList();
+                var body = this.lines.Skip(1).Select(lineArr => ToCsvLine(lineArr, false, skipQuotes: skipQuotes, includeQuotesForDoubles: includeQuotesForDoubles, commaDelimiter: commaDelimiter)).ToList();
                 body.Insert(0, ToCsvLine(Headers, header: true, skipQuotes: skipQuotes));
                 File.WriteAllLines(path, body);
                 return string.Empty;
