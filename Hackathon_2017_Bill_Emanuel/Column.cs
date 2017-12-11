@@ -13,9 +13,25 @@ namespace Hackathon_2017_Bill_Emanuel
         public string Example1 { get; set; }
         public string Example2 { get; set; }
         public string Example3 { get; set; }
+        public string StringExample { get; set; }
+        public string DoubleExample { get; set; }
+        public ColumnType Type { get; set; }
+        public Column()
+        {
+            this.Type = ColumnType.String;
+        }
         public override string ToString()
         {
-            return string.Format("{0} {1} ({2}, {3}, {4}...)", Id, Header, Example1, Example2, Example3);
+            return string.Format("{0} {1}{5} ({2}, {3}, {4}{6}{7}...)", Id, Header, Example1, Example2, Example3,
+                this.Type != ColumnType.String ? string.Concat(": ", this.Type.ToString()) : string.Empty
+                , string.IsNullOrEmpty(StringExample) ? string.Empty : string.Concat(", ", StringExample), string.IsNullOrEmpty(DoubleExample) ? string.Empty : string.Concat(", ", DoubleExample));
         }
+    }
+
+    public enum ColumnType
+    {
+        String,
+        Int,
+        Double
     }
 }

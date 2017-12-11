@@ -16,9 +16,15 @@ namespace Hackathon_2017_Bill_Emanuel
         public Form1()
         {
             InitializeComponent();
+            x.HeadersReset += HeadersResetHandler;
         }
 
         DataInput x = new DataInput();
+
+        void HeadersResetHandler(object o, EventArgs e)
+        {
+            lstHeaders.DataSource = x.Columns;
+        }
 
         private void btnImport_Click(object sender, EventArgs e)
         {
@@ -33,7 +39,10 @@ namespace Hackathon_2017_Bill_Emanuel
             {
                 string err = x.LoadFile(d.FileName, this.txtSeparator.Text);
                 if (!string.IsNullOrEmpty(err))
+                {
                     txtResult.Text = err;
+                }
+                txtOutFile.Text = d.FileName.Replace(".csv_input.txt", ".csv").Replace(".txt", ".csv");
 
                 this.lstHeaders.DataSource = x.Columns;
             }
@@ -41,11 +50,27 @@ namespace Hackathon_2017_Bill_Emanuel
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string res = x.SaveFile(this.txtOutFile.Text);
+            string res = x.SaveFile(this.txtOutFile.Text, this.txtSeparator.Text);
             if (string.IsNullOrEmpty(res))
             {
                 this.txtResult.Text = "Saved!";
                 
+            }
+            else
+            {
+                this.txtResult.Text = res;
+            }
+        }
+
+        private void btnSaveAsInput_Click(object sender, EventArgs e)
+        {
+            string dotTxt = this.txtOutFile.Text;
+            if (!dotTxt.ToLower().EndsWith(".txt")) dotTxt += "_input.txt";
+            string res = x.SaveFile(dotTxt, "\t", false, this.chkDoubleMeansQuotes.Checked);
+            if (string.IsNullOrEmpty(res))
+            {
+                this.txtResult.Text = string.Format("Saved as {0}!", dotTxt);
+
             }
             else
             {
@@ -89,7 +114,6 @@ namespace Hackathon_2017_Bill_Emanuel
             {
                 action(this.x, column);
             }
-            lstHeaders.DataSource = x.Columns;
         }
         
         private List<Column> GetSelectedColumns()
@@ -100,6 +124,62 @@ namespace Hackathon_2017_Bill_Emanuel
                 sel.Add(column);
             }
             return sel;
+        }
+
+        private Column GetFirstSelectedColumn()
+        {
+            return (Column)lstHeaders.SelectedItems[0];
+        }
+
+        private void btnMoveColumnLast_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var sel = GetFirstSelectedColumn();
+                string res = x.MoveColumnLast(sel);
+                if (!string.IsNullOrEmpty(res))
+                {
+                    this.txtResult.Text = res;
+                }
+            }
+            catch
+            {
+                this.txtResult.Text = "Unknown error!";
+            }
+        }
+
+        private void btnSplitText_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(txtSplitSeparator.Text))
+                {
+                    this.txtResult.Text = "Please write a separator in the box next to the split button.";
+                    return;
+                }
+                var sel = GetSelectedColumns();
+                this.txtResult.Text = x.SplitTextsInColumns(sel, this.txtSplitSeparator.Text);
+            }
+            catch (Exception ex)
+            {
+
+                this.txtResult.Text = ex.ToString();
+            }
+        }
+
+        private void btnRenameHeader_Click(object sender, EventArgs e)
+        {
+            var sel = GetFirstSelectedColumn();
+            this.txtResult.Text = x.RenameColumn(sel, txtRenameHeader.Text);
+        }
+
+        private void btnToInt_Click(object sender, EventArgs e)
+        {
+            var sel = GetSelectedColumns();
+            var res = new List<string>();
+            Foreach(sel, (x, col) => res.Add(x.DoubleToInt(col)));
+            x.ResetColumns();
+            this.txtResult.Text = string.Join(Environment.NewLine, res);
         }
     }
 }

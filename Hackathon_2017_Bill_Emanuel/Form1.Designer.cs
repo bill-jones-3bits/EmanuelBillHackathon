@@ -43,6 +43,14 @@
             this.txtReplaceEmpty = new System.Windows.Forms.TextBox();
             this.txtReplaceNonEmpty = new System.Windows.Forms.TextBox();
             this.btnReplaceNonEmpty = new System.Windows.Forms.Button();
+            this.btnMoveColumnLast = new System.Windows.Forms.Button();
+            this.btnSplitText = new System.Windows.Forms.Button();
+            this.txtSplitSeparator = new System.Windows.Forms.TextBox();
+            this.btnRenameHeader = new System.Windows.Forms.Button();
+            this.txtRenameHeader = new System.Windows.Forms.TextBox();
+            this.btnSaveAsInput = new System.Windows.Forms.Button();
+            this.btnToInt = new System.Windows.Forms.Button();
+            this.chkDoubleMeansQuotes = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnImport
@@ -88,7 +96,7 @@
             this.lstHeaders.Name = "lstHeaders";
             this.lstHeaders.ScrollAlwaysVisible = true;
             this.lstHeaders.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstHeaders.Size = new System.Drawing.Size(558, 368);
+            this.lstHeaders.Size = new System.Drawing.Size(752, 394);
             this.lstHeaders.TabIndex = 4;
             // 
             // txtSeparator
@@ -131,7 +139,7 @@
             // 
             // btnReplace
             // 
-            this.btnReplace.Location = new System.Drawing.Point(12, 386);
+            this.btnReplace.Location = new System.Drawing.Point(12, 331);
             this.btnReplace.Name = "btnReplace";
             this.btnReplace.Size = new System.Drawing.Size(80, 23);
             this.btnReplace.TabIndex = 9;
@@ -141,7 +149,7 @@
             // 
             // txtReplace
             // 
-            this.txtReplace.Location = new System.Drawing.Point(98, 389);
+            this.txtReplace.Location = new System.Drawing.Point(98, 334);
             this.txtReplace.Name = "txtReplace";
             this.txtReplace.Size = new System.Drawing.Size(100, 20);
             this.txtReplace.TabIndex = 10;
@@ -149,7 +157,7 @@
             // 
             // txtReplaceWith
             // 
-            this.txtReplaceWith.Location = new System.Drawing.Point(204, 389);
+            this.txtReplaceWith.Location = new System.Drawing.Point(204, 334);
             this.txtReplaceWith.Name = "txtReplaceWith";
             this.txtReplaceWith.Size = new System.Drawing.Size(100, 20);
             this.txtReplaceWith.TabIndex = 11;
@@ -181,11 +189,97 @@
             this.btnReplaceNonEmpty.UseVisualStyleBackColor = true;
             this.btnReplaceNonEmpty.Click += new System.EventHandler(this.btnReplaceNonEmpty_Click);
             // 
+            // btnMoveColumnLast
+            // 
+            this.btnMoveColumnLast.Location = new System.Drawing.Point(12, 444);
+            this.btnMoveColumnLast.Name = "btnMoveColumnLast";
+            this.btnMoveColumnLast.Size = new System.Drawing.Size(142, 23);
+            this.btnMoveColumnLast.TabIndex = 15;
+            this.btnMoveColumnLast.Text = "Move column last";
+            this.btnMoveColumnLast.UseVisualStyleBackColor = true;
+            this.btnMoveColumnLast.Click += new System.EventHandler(this.btnMoveColumnLast_Click);
+            // 
+            // btnSplitText
+            // 
+            this.btnSplitText.Location = new System.Drawing.Point(12, 386);
+            this.btnSplitText.Name = "btnSplitText";
+            this.btnSplitText.Size = new System.Drawing.Size(186, 23);
+            this.btnSplitText.TabIndex = 16;
+            this.btnSplitText.Text = "Split text on separator";
+            this.btnSplitText.UseVisualStyleBackColor = true;
+            this.btnSplitText.Click += new System.EventHandler(this.btnSplitText_Click);
+            // 
+            // txtSplitSeparator
+            // 
+            this.txtSplitSeparator.Location = new System.Drawing.Point(204, 388);
+            this.txtSplitSeparator.Name = "txtSplitSeparator";
+            this.txtSplitSeparator.Size = new System.Drawing.Size(100, 20);
+            this.txtSplitSeparator.TabIndex = 17;
+            this.txtSplitSeparator.Text = ";";
+            // 
+            // btnRenameHeader
+            // 
+            this.btnRenameHeader.Location = new System.Drawing.Point(12, 360);
+            this.btnRenameHeader.Name = "btnRenameHeader";
+            this.btnRenameHeader.Size = new System.Drawing.Size(186, 23);
+            this.btnRenameHeader.TabIndex = 18;
+            this.btnRenameHeader.Text = "Rename header";
+            this.btnRenameHeader.UseVisualStyleBackColor = true;
+            this.btnRenameHeader.Click += new System.EventHandler(this.btnRenameHeader_Click);
+            // 
+            // txtRenameHeader
+            // 
+            this.txtRenameHeader.Location = new System.Drawing.Point(204, 362);
+            this.txtRenameHeader.Name = "txtRenameHeader";
+            this.txtRenameHeader.Size = new System.Drawing.Size(100, 20);
+            this.txtRenameHeader.TabIndex = 19;
+            this.txtRenameHeader.Text = "newHeader";
+            // 
+            // btnSaveAsInput
+            // 
+            this.btnSaveAsInput.Location = new System.Drawing.Point(723, 12);
+            this.btnSaveAsInput.Name = "btnSaveAsInput";
+            this.btnSaveAsInput.Size = new System.Drawing.Size(218, 23);
+            this.btnSaveAsInput.TabIndex = 20;
+            this.btnSaveAsInput.Text = "Save as input file (tab separated, .txt)";
+            this.btnSaveAsInput.UseVisualStyleBackColor = true;
+            this.btnSaveAsInput.Click += new System.EventHandler(this.btnSaveAsInput_Click);
+            // 
+            // btnToInt
+            // 
+            this.btnToInt.Location = new System.Drawing.Point(12, 415);
+            this.btnToInt.Name = "btnToInt";
+            this.btnToInt.Size = new System.Drawing.Size(142, 23);
+            this.btnToInt.TabIndex = 21;
+            this.btnToInt.Text = "Doubles to integers";
+            this.btnToInt.UseVisualStyleBackColor = true;
+            this.btnToInt.Click += new System.EventHandler(this.btnToInt_Click);
+            // 
+            // chkDoubleMeansQuotes
+            // 
+            this.chkDoubleMeansQuotes.AutoSize = true;
+            this.chkDoubleMeansQuotes.Checked = true;
+            this.chkDoubleMeansQuotes.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDoubleMeansQuotes.Location = new System.Drawing.Point(574, 16);
+            this.chkDoubleMeansQuotes.Name = "chkDoubleMeansQuotes";
+            this.chkDoubleMeansQuotes.Size = new System.Drawing.Size(143, 17);
+            this.chkDoubleMeansQuotes.TabIndex = 22;
+            this.chkDoubleMeansQuotes.Text = "Save double with quotes";
+            this.chkDoubleMeansQuotes.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 422);
+            this.ClientSize = new System.Drawing.Size(1074, 482);
+            this.Controls.Add(this.chkDoubleMeansQuotes);
+            this.Controls.Add(this.btnToInt);
+            this.Controls.Add(this.btnSaveAsInput);
+            this.Controls.Add(this.txtRenameHeader);
+            this.Controls.Add(this.btnRenameHeader);
+            this.Controls.Add(this.txtSplitSeparator);
+            this.Controls.Add(this.btnSplitText);
+            this.Controls.Add(this.btnMoveColumnLast);
             this.Controls.Add(this.txtReplaceNonEmpty);
             this.Controls.Add(this.btnReplaceNonEmpty);
             this.Controls.Add(this.txtReplaceEmpty);
@@ -225,6 +319,14 @@
         private System.Windows.Forms.TextBox txtReplaceEmpty;
         private System.Windows.Forms.TextBox txtReplaceNonEmpty;
         private System.Windows.Forms.Button btnReplaceNonEmpty;
+        private System.Windows.Forms.Button btnMoveColumnLast;
+        private System.Windows.Forms.Button btnSplitText;
+        private System.Windows.Forms.TextBox txtSplitSeparator;
+        private System.Windows.Forms.Button btnRenameHeader;
+        private System.Windows.Forms.TextBox txtRenameHeader;
+        private System.Windows.Forms.Button btnSaveAsInput;
+        private System.Windows.Forms.Button btnToInt;
+        private System.Windows.Forms.CheckBox chkDoubleMeansQuotes;
     }
 }
 
