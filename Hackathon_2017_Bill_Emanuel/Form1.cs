@@ -37,15 +37,24 @@ namespace Hackathon_2017_Bill_Emanuel
             }
             if (r == DialogResult.OK)
             {
-                string err = x.LoadFile(d.FileName, this.txtSeparator.Text);
-                if (!string.IsNullOrEmpty(err))
-                {
-                    txtResult.Text = err;
-                }
-                txtOutFile.Text = d.FileName.Replace(".csv_input.txt", ".csv").Replace(".txt", ".csv");
-
-                this.lstHeaders.DataSource = x.Columns;
+                LoadFile(d.FileName);
             }
+        }
+
+        private void LoadFile(string fileName)
+        {
+            string err = x.LoadFile(fileName, this.txtInputSeparator.Text, this.txtSeparator.Text);
+            if (!string.IsNullOrEmpty(err))
+            {
+                txtResult.Text = err;
+            }
+            else
+            {
+                txtResult.Text = string.Format("File loaded with input csv separator '{0}', and will be saved with separator '{1}'!", this.txtInputSeparator.Text, this.txtSeparator.Text);
+            }
+            txtOutFile.Text = fileName.Replace(".csv_input.txt", ".csv").Replace(".txt", ".csv");
+
+            this.lstHeaders.DataSource = x.Columns;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -181,6 +190,54 @@ namespace Hackathon_2017_Bill_Emanuel
             Foreach(sel, (x, col) => res.Add(x.DoubleToInt(col)));
             x.ResetColumns();
             this.txtResult.Text = string.Join(Environment.NewLine, res);
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            var link = e.Data.GetData(DataFormats.FileDrop);
+
+            try
+            {
+                if (link != null && link is string[])
+                {
+                    var files = ((string[])link);
+                    if (files.Count() >= 1)
+                    {
+                        string file = files.First();
+                        if (file.EndsWith(".txt") || file.EndsWith(".csv"))
+                        {
+                            LoadFile(file);
+                        }
+                        else
+                        {
+                            txtResult.Text = "I think we need .txt or .csv friend.";
+                        }
+                    }
+                    else
+                    {
+                        txtResult.Text = "No file found";
+                    }
+                }
+                else txtResult.Text = "Not a proper file! I think";
+            }
+            catch (Exception ex)
+            {
+                txtResult.Text = ex.ToString();
+            }
+        }
+
+        private void Form1_DragOver(object sender, DragEventArgs e)
+        {
+            var ee = e;
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Link;
+            }
+            else e.Effect = DragDropEffects.None;
         }
     }
 }

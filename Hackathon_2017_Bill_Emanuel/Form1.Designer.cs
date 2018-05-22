@@ -56,6 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtInputSeparator = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnImport
@@ -89,9 +90,10 @@
             // 
             // txtOutFile
             // 
-            this.txtOutFile.Location = new System.Drawing.Point(160, 14);
+            this.txtOutFile.AllowDrop = true;
+            this.txtOutFile.Location = new System.Drawing.Point(204, 14);
             this.txtOutFile.Name = "txtOutFile";
-            this.txtOutFile.Size = new System.Drawing.Size(292, 20);
+            this.txtOutFile.Size = new System.Drawing.Size(248, 20);
             this.txtOutFile.TabIndex = 3;
             this.txtOutFile.Text = "C:\\tmp\\output.csv";
             // 
@@ -321,8 +323,17 @@
             this.label3.TabIndex = 26;
             this.label3.Text = "Decimal delimiter setting:";
             // 
+            // txtInputSeparator
+            // 
+            this.txtInputSeparator.Location = new System.Drawing.Point(160, 14);
+            this.txtInputSeparator.Name = "txtInputSeparator";
+            this.txtInputSeparator.Size = new System.Drawing.Size(29, 20);
+            this.txtInputSeparator.TabIndex = 5;
+            this.txtInputSeparator.Text = "\\t";
+            // 
             // Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 482);
@@ -348,6 +359,7 @@
             this.Controls.Add(this.btnReplaceEmpty);
             this.Controls.Add(this.btnColDateToYearMonth);
             this.Controls.Add(this.btnColumnRemove);
+            this.Controls.Add(this.txtInputSeparator);
             this.Controls.Add(this.txtSeparator);
             this.Controls.Add(this.lstHeaders);
             this.Controls.Add(this.txtOutFile);
@@ -356,6 +368,9 @@
             this.Controls.Add(this.btnImport);
             this.Name = "Form1";
             this.Text = "Tabbed .txt to .csv";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.Form1_DragOver);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -391,6 +406,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtInputSeparator;
     }
 }
 

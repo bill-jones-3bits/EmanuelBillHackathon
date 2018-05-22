@@ -14,23 +14,26 @@ namespace Hackathon_2017_Bill_Emanuel
         Excel.Application app = new Excel.Application();
         StreamWriter f;
         string separator;
+        string inputSeparator;
 
         public event EventHandler HeadersReset;
 
         List<List<string>> lines;
-        public string LoadFile(string path, string separator)
+        public string LoadFile(string path, string inputSeparator, string outputSeparator)
         {
             try
             {
-                this.separator = separator;
+                this.separator = outputSeparator;
+                if (inputSeparator == "\\t") inputSeparator = @"    ";
+                this.inputSeparator = inputSeparator;
 
                 var lines = File.ReadAllLines(path);
                 this.lines = new List<List<string>>();
                 foreach (string line in lines)
                 {
-                    this.lines.Add(line.Split("\t".ToCharArray()).ToList());
+                    this.lines.Add(line.Split(inputSeparator.ToCharArray()).ToList());
                 }
-                this.UpdateTypes();
+                this.ResetColumns();
             }
             catch (Exception ex)
             {
@@ -49,7 +52,7 @@ namespace Hackathon_2017_Bill_Emanuel
 
         private string ToCsvLine(string line)
         {
-            return string.Format("\"{0}\"", line.Replace("\t", string.Format("\"{0}\"", this.separator)));
+            return string.Format("\"{0}\"", line.Replace(this.inputSeparator, string.Format("\"{0}\"", this.separator)));
         }
 
         private string ToCsvLine(IEnumerable<string> line, bool header, bool skipQuotes = false, bool includeQuotesForDoubles = true, bool? commaDelimiter = null)
