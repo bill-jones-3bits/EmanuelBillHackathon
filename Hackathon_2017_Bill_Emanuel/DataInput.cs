@@ -55,9 +55,10 @@ namespace Hackathon_2017_Bill_Emanuel
             return string.Format("\"{0}\"", line.Replace(this.inputSeparator, string.Format("\"{0}\"", this.separator)));
         }
 
-        private string ToCsvLine(IEnumerable<string> line, bool header, bool skipQuotes = false, bool includeQuotesForDoubles = true, bool? commaDelimiter = null)
+        private string ToCsvLine(IEnumerable<string> line, bool header, string sep, bool skipQuotes = false, bool includeQuotesForDoubles = true, bool? commaDelimiter = null)
         {
             string quote = skipQuotes ? string.Empty : "\"";
+            if (sep == string.Empty) sep = this.separator;
             if (skipQuotes)
             {
                 return string.Format("{1}{0}{1}", string.Join(string.Concat(quote, this.separator, quote), line), quote);
@@ -152,11 +153,11 @@ namespace Hackathon_2017_Bill_Emanuel
             {
                 this.separator = separator;
                 bool skipQuotes = !useQuotes;
-                if (this.separator == "\t" || this.separator == @"   ") { skipQuotes = true; }
+                if (separator == "\t" || separator == @"   ") { skipQuotes = true; }
                 RenameUniqueHeaders();
                 UpdateTypes();
-                var body = this.lines.Skip(1).Select(lineArr => ToCsvLine(lineArr, false, skipQuotes: skipQuotes, includeQuotesForDoubles: includeQuotesForDoubles, commaDelimiter: commaDelimiter)).ToList();
-                body.Insert(0, ToCsvLine(Headers, header: true, skipQuotes: skipQuotes));
+                var body = this.lines.Skip(1).Select(lineArr => ToCsvLine(lineArr, false, this.inputSeparator, skipQuotes: skipQuotes, includeQuotesForDoubles: includeQuotesForDoubles, commaDelimiter: commaDelimiter)).ToList();
+                body.Insert(0, ToCsvLine(Headers, header: true, sep: separator, skipQuotes: skipQuotes));
                 File.WriteAllLines(path, body);
                 return string.Empty;
             }

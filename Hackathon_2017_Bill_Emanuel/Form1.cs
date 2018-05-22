@@ -76,7 +76,7 @@ namespace Hackathon_2017_Bill_Emanuel
         {
             string dotTxt = this.txtOutFile.Text;
             if (!dotTxt.ToLower().EndsWith(".txt")) dotTxt += "_input.txt";
-            string res = x.SaveFile(dotTxt, "\t", false, this.chkDoubleMeansQuotes.Checked);
+            string res = x.SaveFile(dotTxt, this.txtInputSeparator.Text, false, this.chkDoubleMeansQuotes.Checked);
             if (string.IsNullOrEmpty(res))
             {
                 this.txtResult.Text = string.Format("Saved as {0}!", dotTxt);
