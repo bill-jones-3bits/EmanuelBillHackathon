@@ -190,32 +190,42 @@ namespace Hackathon_2017_Bill_Emanuel
         {
             double d;
             Func<string, string> repl = new Func<string, string>(v => v.Replace("-", string.Empty).Replace(",", string.Empty).Replace(".", string.Empty));
-            foreach(var col in this.Columns)
+            foreach (var col in this.Columns)
             {
-                var values = lines.Select(line => line[col.Id]).Skip(1);
-                if (values.Any(v => repl(v).Any(c => !char.IsNumber(c))))
+                try
                 {
-                    col.Type = ColumnType.String;
-                    col.StringExample = values.Skip(3).First(v => repl(v).Any(c => !char.IsNumber(c)));
-                    continue;
+                    var values = lines.Select(line => line[col.Id]).Skip(1);
+                    if (values.Any(v => repl(v).Any(c => !char.IsNumber(c))))
+                    {
+                        col.Type = ColumnType.String;
+                        col.StringExample = values.Skip(3).Any(v => repl(v).Any(c => !char.IsNumber(c))) ?
+                            values.Skip(3).First(v => repl(v).Any(c => !char.IsNumber(c)))
+                            : string.Empty;
+                        continue;
+                    }
+                    else
+                    {
+                        if (!values.Any(v => v.Contains(",") || v.Contains(".")) && values.All(v => repl(v).All(c => char.IsNumber(c))))
+                        {
+                            col.Type = ColumnType.Int;
+                            continue;
+                        }
+                        if (values.All(v => double.TryParse(v, out d)))
+                        {
+                            col.Type = ColumnType.Double;
+                            var example = values.Skip(3).FirstOrDefault(v => v.Contains(",") || v.Contains("."));
+                            if (string.IsNullOrEmpty(example)) example = values.Last();
+                            col.DoubleExample = example;
+                            continue;
+                        }
+                        col.Type = ColumnType.String;
+                        col.StringExample = string.Concat(values.Skip(3).First(v => v.Any(c => !char.IsNumber(c))), "??");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    if (!values.Any(v => v.Contains(",") || v.Contains(".")) && values.All( v => repl(v).All(c => char.IsNumber(c))))
-                    {
-                        col.Type = ColumnType.Int;
-                        continue;
-                    }
-                    if (values.All(v => double.TryParse(v, out d)))
-                    {
-                        col.Type = ColumnType.Double;
-                        var example = values.Skip(3).FirstOrDefault(v => v.Contains(",") || v.Contains("."));
-                        if (string.IsNullOrEmpty(example)) example = values.Last();
-                        col.DoubleExample = example;
-                        continue;
-                    }
-                    col.Type = ColumnType.String;
-                    col.StringExample = string.Concat(values.Skip(3).First(v => v.Any(c => !char.IsNumber(c))), "??");
+
+                    throw ex;
                 }
             }
         }
