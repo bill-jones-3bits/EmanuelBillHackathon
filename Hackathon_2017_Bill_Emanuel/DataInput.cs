@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using emanuel.Extensions;
 
 namespace Hackathon_2017_Bill_Emanuel
 {
@@ -16,8 +17,12 @@ namespace Hackathon_2017_Bill_Emanuel
         string separator;
         string inputSeparator;
 
+        int topXExamples = 3;
+        bool distinctExamples = false;
+
         public event EventHandler HeadersReset;
 
+        // lines[row][header]
         List<List<string>> lines;
         public string LoadFile(string path, string inputSeparator, string outputSeparator)
         {
@@ -25,6 +30,14 @@ namespace Hackathon_2017_Bill_Emanuel
             {
                 this.separator = outputSeparator;
                 if (inputSeparator == "\\t") inputSeparator = @"    ";
+
+                if (InputSeparatorIncorrect != null)
+                {
+                    CheckFirstLineSeparator(path, ref inputSeparator);
+                }
+                if (inputSeparator == string.Empty)
+                    return "Cancelled because of empty input separator.";
+
                 this.inputSeparator = inputSeparator;
 
                 var lines = File.ReadAllLines(path);
@@ -48,6 +61,50 @@ namespace Hackathon_2017_Bill_Emanuel
                 }
             }
             return string.Empty;
+        }
+
+        private void CheckFirstLineSeparator(string path, ref string inputSeparator)
+        {
+            string first = File.ReadLines(path)
+                .First();
+
+            if (first.Length - first.Replace(inputSeparator, string.Empty).Length < 3)
+            {
+                double i = 0.0;
+                Func<string, double> FoundLenght = (s =>
+               {
+                   i = i - 0.1;
+                   return first.Length - first.Replace(s, string.Empty).Length + i;                   
+               });
+                var suggestions = new[] { ";", ",", @"    ", "|" }
+                    .Select(s => new { Separator = s, Found = FoundLenght(s) })
+                    .OrderByDescending(s => s.Found)
+                    .ToList();
+
+                inputSeparator = new InputSeparatorValidation()
+                {
+                    Path = path,
+                    Separator = inputSeparator,
+                    UseNewSeparator = false,
+                    CancelOpenFile = false,
+                    RecommendedNewSeparator = suggestions.First().Separator,
+                }.Forward(v => 
+                {
+                    InputSeparatorIncorrect(v, new EventArgs());
+                    return v.UseNewSeparator ? v.RecommendedNewSeparator : v.CancelOpenFile ? string.Empty : v.Separator;
+                });
+            }
+        }
+
+        public delegate void InputSeparatorValidationHandler(InputSeparatorValidation validation, EventArgs e);
+        public event InputSeparatorValidationHandler InputSeparatorIncorrect;
+        public class InputSeparatorValidation
+        {
+            public string Path { get; set; }
+            public string Separator { get; set; }
+            public string RecommendedNewSeparator { get; set; }
+            public bool UseNewSeparator { get; set; }
+            public bool CancelOpenFile { get; set; }
         }
 
         private string ToCsvLine(string line)
@@ -96,6 +153,7 @@ namespace Hackathon_2017_Bill_Emanuel
 
         public string LoadExcelFile(string path)
         {
+            // cheers
             throw new NotImplementedException(":c");
             string interimCsv = "C:\\tmp\\tmp.csv";
             string outFile = "C:\\tmp\\file.txt";
@@ -230,6 +288,16 @@ namespace Hackathon_2017_Bill_Emanuel
             }
         }
 
+        public void UpdateExamples(int top = 3, bool distinct = false)
+        {
+            if (top != topXExamples || distinct != distinctExamples)
+            {
+                (topXExamples, distinctExamples) = (top, distinct);
+
+                ResetColumns();
+            }
+        }
+
         public List<string> Headers
         {
             get
@@ -242,6 +310,14 @@ namespace Hackathon_2017_Bill_Emanuel
             }
         }
 
+        internal List<string> GetDistinct(Column c)
+            => lines
+                .Skip(1)
+                .Select(line => line[c.Id])
+                .Distinct()
+                .OrderBy(s => s)
+                .ToList();
+
         List<Column> _columns;
         public List<Column> Columns
         {
@@ -252,19 +328,22 @@ namespace Hackathon_2017_Bill_Emanuel
                     if (_columns == null)
                     {
                         _columns = new List<Column>();
-                        var headers = Headers;
-                        var ex1 = this.lines.Count > 1 ? this.lines[1] : throw new InvalidDataException("Too few rows!");
-                        var ex2 = this.lines.Count > 2 ? this.lines[2] : throw new InvalidDataException("Too few rows!");
-                        var ex3 = this.lines.Count > 3 ? this.lines[3] : throw new InvalidDataException("Too few rows!");
+
+                        if (this.lines.Count < topXExamples)
+                            throw new InvalidDataException("Too few rows!");
+                        
                         for (int i = 0; i < Headers.Count; i++)
                         {
                             _columns.Add(new Column()
                             {
                                 Id = i,
-                                Header = headers[i],
-                                Example1 = ex1[i],
-                                Example2 = ex2[i],
-                                Example3= ex3[i]
+                                Header = Headers[i],
+                                Examples = lines
+                                    .Skip(1)
+                                    .Select(line => line[i])
+                                    .Forward(ls => distinctExamples ? ls.Distinct() : ls)
+                                    .Take(Math.Max(topXExamples - 1, 0))
+                                    .ToList()
                             });
                         }
                     }

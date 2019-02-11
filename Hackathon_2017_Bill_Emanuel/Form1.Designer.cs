@@ -57,6 +57,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtInputSeparator = new System.Windows.Forms.TextBox();
+            this.chkDisplayDistinctExamples = new System.Windows.Forms.CheckBox();
+            this.txtDisplayTopX = new System.Windows.Forms.TextBox();
+            this.btnShowDistinct = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnImport
@@ -331,12 +334,47 @@
             this.txtInputSeparator.TabIndex = 5;
             this.txtInputSeparator.Text = "\\t";
             // 
+            // chkDisplayDistinctExamples
+            // 
+            this.chkDisplayDistinctExamples.AutoSize = true;
+            this.chkDisplayDistinctExamples.Location = new System.Drawing.Point(825, 455);
+            this.chkDisplayDistinctExamples.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.chkDisplayDistinctExamples.Name = "chkDisplayDistinctExamples";
+            this.chkDisplayDistinctExamples.Size = new System.Drawing.Size(45, 17);
+            this.chkDisplayDistinctExamples.TabIndex = 27;
+            this.chkDisplayDistinctExamples.Text = "Top";
+            this.chkDisplayDistinctExamples.UseVisualStyleBackColor = true;
+            this.chkDisplayDistinctExamples.CheckedChanged += new System.EventHandler(this.chkDisplayDistinctExamples_CheckedChanged);
+            // 
+            // txtDisplayTopX
+            // 
+            this.txtDisplayTopX.Location = new System.Drawing.Point(898, 455);
+            this.txtDisplayTopX.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.txtDisplayTopX.Name = "txtDisplayTopX";
+            this.txtDisplayTopX.Size = new System.Drawing.Size(33, 20);
+            this.txtDisplayTopX.TabIndex = 28;
+            this.txtDisplayTopX.Text = "3";
+            this.txtDisplayTopX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisplayTopX_KeyPress);
+            // 
+            // btnShowDistinct
+            // 
+            this.btnShowDistinct.Location = new System.Drawing.Point(204, 444);
+            this.btnShowDistinct.Name = "btnShowDistinct";
+            this.btnShowDistinct.Size = new System.Drawing.Size(97, 23);
+            this.btnShowDistinct.TabIndex = 29;
+            this.btnShowDistinct.Text = "Show distinct";
+            this.btnShowDistinct.UseVisualStyleBackColor = true;
+            this.btnShowDistinct.Click += new System.EventHandler(this.btnShowDistinct_Click);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 482);
+            this.Controls.Add(this.btnShowDistinct);
+            this.Controls.Add(this.txtDisplayTopX);
+            this.Controls.Add(this.chkDisplayDistinctExamples);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -407,6 +445,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtInputSeparator;
+        private System.Windows.Forms.CheckBox chkDisplayDistinctExamples;
+        private System.Windows.Forms.TextBox txtDisplayTopX;
+        private System.Windows.Forms.Button btnShowDistinct;
     }
 }
 

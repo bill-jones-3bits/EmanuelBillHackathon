@@ -28,3 +28,17 @@ C:\Users\emanuel.hogberg\Dropbox\Hacks\EmanuelBillHackathon\Hackathon_2017_Bill_
 C:\Users\emanuel.hogberg\Dropbox\Hacks\EmanuelBillHackathon\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csproj.GenerateResource.Cache
 C:\Users\emanuel.hogberg\Dropbox\Hacks\EmanuelBillHackathon\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.exe
 C:\Users\emanuel.hogberg\Dropbox\Hacks\EmanuelBillHackathon\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.pdb
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\bin\Debug\Hackathon_2017_Bill_Emanuel.exe.config
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\bin\Debug\Hackathon_2017_Bill_Emanuel.exe
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\bin\Debug\Hackathon_2017_Bill_Emanuel.pdb
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csprojResolveAssemblyReference.cache
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csproj.ResolveComReference.cache
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.Form1.resources
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.Properties.Resources.resources
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csproj.GenerateResource.Cache
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.csproj.CoreCompileInputs.cache
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.exe
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.pdb
+c:\github\sourcer\Hackathon_2017_Bill_Emanuel\bin\Debug\System.ValueTuple.dll
+c:\github\sourcer\Hackathon_2017_Bill_Emanuel\bin\Debug\System.ValueTuple.xml
+C:\github\sourcer\Hackathon_2017_Bill_Emanuel\obj\Debug\Hackathon_2017_Bill_Emanuel.TextViewer.resources

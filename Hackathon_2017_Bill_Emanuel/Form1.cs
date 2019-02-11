@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using emanuel.Extensions;
 
 namespace Hackathon_2017_Bill_Emanuel
 {
@@ -17,6 +18,19 @@ namespace Hackathon_2017_Bill_Emanuel
         {
             InitializeComponent();
             x.HeadersReset += HeadersResetHandler;
+            x.InputSeparatorIncorrect += X_InputSeparatorIncorrect;
+        }
+
+        private void X_InputSeparatorIncorrect(DataInput.InputSeparatorValidation validation, EventArgs e)
+        {
+            var r = MessageBox.Show($"Separator '{validation.Separator}' may be incorrect! Do you want to use '{validation.RecommendedNewSeparator}' instead?", validation.Path, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (r == DialogResult.Yes)
+            {
+                validation.UseNewSeparator = true;
+                txtInputSeparator.Text = validation.RecommendedNewSeparator;
+            }
+            if (r == DialogResult.Cancel)
+                validation.CancelOpenFile = true;
         }
 
         DataInput x = new DataInput();
@@ -28,7 +42,7 @@ namespace Hackathon_2017_Bill_Emanuel
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            var d = new OpenFileDialog() { Filter = "*.txt|*.txt" };
+            var d = new OpenFileDialog() { Filter = "*|*|*.txt|*.txt" };
             var r = d.ShowDialog();
             if (string.IsNullOrEmpty(this.txtSeparator.Text))
             {
@@ -238,6 +252,57 @@ namespace Hackathon_2017_Bill_Emanuel
                 e.Effect = DragDropEffects.Link;
             }
             else e.Effect = DragDropEffects.None;
+        }
+
+        private bool EnterPressed(KeyPressEventArgs e)
+        => e.KeyChar == (char)13;
+
+        private void txtDisplayTopX_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (EnterPressed(e))
+            {
+                chkDisplayDistinctExamples_CheckedChanged(sender, e);
+            }
+        }
+
+        private void chkDisplayDistinctExamples_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                chkDisplayDistinctExamples.Text = chkDisplayDistinctExamples.Checked ? "Distinct top" : "Top";
+                if (int.TryParse(txtDisplayTopX.Text, out int top))
+                {
+                    x.UpdateExamples(top, chkDisplayDistinctExamples.Checked);
+                }
+                else
+                {
+                    txtResult.Text = string.Concat(txtDisplayTopX.Text, " is not an integer!");
+                }
+            }
+            catch (Exception ex)
+            {
+                txtResult.Text = ex.Message;
+            }
+        }
+
+        private void btnShowDistinct_Click(object sender, EventArgs e)
+        {
+            GetSelectedColumns()
+                .Do(cols =>
+                {
+                    if (cols.Count() == 1)
+                    {
+                        var c = cols.First();
+
+                        new TextViewer()
+                        {
+                            Title = "View distinct ",
+                            TextBlock = x.GetDistinct(c)
+                                .AggregateToString(Environment.NewLine)
+                        }
+                        .ShowDialog();
+                    }
+                });
         }
     }
 }
